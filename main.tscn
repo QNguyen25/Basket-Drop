@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwnigy13mgsc"]
+[gd_scene load_steps=6 format=3 uid="uid://bwnigy13mgsc"]
 
-[ext_resource type="Texture2D" uid="uid://lpxerspeq45k" path="res://Background/istockphoto-1128211656-612x612.jpg" id="1_w6t0i"]
+[ext_resource type="Texture2D" uid="uid://dbino188ja3i1" path="res://Background/istockphoto-1128211656-612x612.jpg" id="1_w6t0i"]
 [ext_resource type="Script" path="res://main.gd" id="2_n74ed"]
+[ext_resource type="PackedScene" uid="uid://caxntts1mxgsi" path="res://player.tscn" id="3_e0ysd"]
+[ext_resource type="PackedScene" uid="uid://cpp274q4t3mg3" path="res://hud.tscn" id="4_vigek"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3x1bp"]
 size = Vector2(1142.5, 20)
@@ -19,7 +21,6 @@ autostart = true
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(82, -99.9972)
 rotation = 0.00271122
-scale = Vector2(1, 1)
 metadata/_edit_lock_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -30,5 +31,11 @@ position = Vector2(579.75, 777)
 shape = SubResource("RectangleShape2D_3x1bp")
 metadata/_edit_lock_ = true
 
+[node name="Player" parent="." instance=ExtResource("3_e0ysd")]
+position = Vector2(590, 486)
+
+[node name="HUD" parent="." instance=ExtResource("4_vigek")]
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]

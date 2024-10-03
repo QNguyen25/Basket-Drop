@@ -1,4 +1,5 @@
 extends TextureRect
+var score
 
 @export var time_low = 0.5
 @export var time_high = 1.5
@@ -27,3 +28,24 @@ func _on_area_2d_body_entered(body):
 	
 	body.queue_free()
 	pass # Replace with function body.
+
+
+func _on_hud_start_game():
+	pass # Replace with function body.
+	
+	
+func game_over():
+	$EnemyTimer.stop()
+	$ScoreTimer.stop()
+	$HUD.show_game_over()
+	
+func new_game():
+	score = 0
+	$Player.start($PlayerSpawn.position)
+	$StartTimer.start()
+	$HUD.update_score(score)
+	
+	
+func _on_score_player_timeout():
+	score += 1
+	$HUD.update_score(score)
