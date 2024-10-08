@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bwnigy13mgsc"]
 
-[ext_resource type="Texture2D" uid="uid://dbino188ja3i1" path="res://Background/istockphoto-1128211656-612x612.jpg" id="1_w6t0i"]
+[ext_resource type="Texture2D" uid="uid://l6yg8hgy1me4" path="res://Background/about-titlebg-sonic (1).jpg" id="1_rrnuq"]
 [ext_resource type="Script" path="res://main.gd" id="2_n74ed"]
 [ext_resource type="PackedScene" uid="uid://caxntts1mxgsi" path="res://player.tscn" id="3_e0ysd"]
 [ext_resource type="PackedScene" uid="uid://cpp274q4t3mg3" path="res://hud.tscn" id="4_vigek"]
@@ -11,12 +11,14 @@ size = Vector2(1142.5, 20)
 [node name="Main" type="TextureRect"]
 offset_right = 1151.0
 offset_bottom = 651.0
-texture = ExtResource("1_w6t0i")
+texture = ExtResource("1_rrnuq")
 script = ExtResource("2_n74ed")
 metadata/_edit_lock_ = true
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="ScoreTimer" type="Timer" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(82, -99.9972)
@@ -37,5 +39,6 @@ position = Vector2(590, 486)
 [node name="HUD" parent="." instance=ExtResource("4_vigek")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]

@@ -1,10 +1,11 @@
 extends TextureRect
-var score
+var score: int = 0
+var time
 
 @export var time_low = 0.5
 @export var time_high = 1.5
 
-@export var fruits = [preload("res://Fruits/apple.tscn"),preload("res://Fruits/bananas.tscn"),preload("res://Fruits/cherries.tscn")]
+@export var fruits = [preload("res://Fruits/sonic_rings.tscn"),preload("res://Fruits/sonic_rings.tscn"),preload("res://Fruits/sonic_rings.tscn")]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -32,20 +33,12 @@ func _on_area_2d_body_entered(body):
 
 func _on_hud_start_game():
 	pass # Replace with function body.
-	
-	
-func game_over():
-	$EnemyTimer.stop()
-	$ScoreTimer.stop()
-	$HUD.show_game_over()
-	
-func new_game():
-	score = 0
-	$Player.start($PlayerSpawn.position)
-	$StartTimer.start()
-	$HUD.update_score(score)
-	
-	
-func _on_score_player_timeout():
+
+
+func _on_player_hit():
 	score += 1
 	$HUD.update_score(score)
+	
+func _on_score_timer_timeout():
+	time += 1
+	$HUD.update_time(time)
